@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Contact ResQNow Support</title>
+    <!-- page styles -->
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body class="contact-page">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar-custom">
+        <div class="navbar-brand">ResQNow</div>
+        <div class="navbar-menu">
+            <a href="/index.html" class="navbar-item">Home</a>
+            <a href="/dashboard.html" class="navbar-item">Dashboard</a>
+            <a href="/history.html" class="navbar-item">History</a>
+            <a href="/contact.html" class="navbar-item">Contacts</a>
+
+            <!-- Profile Dropdown -->
+            <div class="profile-dropdown">
+                <button class="profile-btn" id="profileBtn" onclick="toggleProfileDropdown(event)">
+                    👤 Profile
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <button class="login-btn" onclick="login()">🔑 Login</button>
+                    <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="contact-hero">
+        <h1>Contact ResQNow Support</h1>
+        <p class="muted">We’re here to help you 24/7</p>
+    </header>
+
+    <!-- Main content -->
+    <main class="contact-content">
+        <div class="contact-grid">
+            <!-- Contact Form Card -->
+            <section class="card" aria-labelledby="contactTitle">
+                <h2 id="contactTitle">Send us a message</h2>
+                <p class="subtitle">We reply quickly — tell us how we can help.</p>
+
+                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="fullName">Full Name</label>
+                            <input id="fullName" name="fullName" type="text" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" placeholder="you@domain.com" required>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:12px">
+                        <label for="subject">Subject</label>
+                        <input id="subject" name="subject" type="text" placeholder="Short summary" required>
+                    </div>
+
+                    <div style="margin-top:12px">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Describe your issue or question"
+                            required></textarea>
+                    </div>
+
+                    <div style="margin-top:18px; display:flex; justify-content:flex-end;">
+                        <button class="btn-send" type="submit">Send Message</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Support Info -->
+            <aside class="support">
+                <div class="info-card">
+                    <h3>Support Information</h3>
+                    <p>📧 Email: <strong>support@resqnow.com</strong></p>
+                    <p>📞 Emergency Helpline: <strong>911</strong></p>
+                    <p>📍 Location: <strong>India</strong></p>
+                    <p class="note">For real emergencies, use the SOS button.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Business Hours</h3>
+                    <p>24 / 7 Support — we respond to non-emergency requests within one business day.</p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- ===== Professional Footer ===== -->
+    <footer class="main-footer">
+        <div class="footer-container">
+
+            <!-- About Section -->
+            <div class="footer-section">
+                <h3>ResQNow</h3>
+                <p>
+                    ResQNow Emergency SOS System helps users send instant emergency alerts
+                    to trusted contacts with real-time tracking and secure notifications.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/dashboard.html">Dashboard</a></li>
+                    <li><a href="/history.html">History</a></li>
+                    <li><a href="/contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Emergency Information -->
+            <div class="footer-section">
+                <h4>Emergency</h4>
+                <ul>
+                    <li>🚨 Available 24/7</li>
+                    <li>📞 Call: 100</li>
+                    <li>📩 Email: resqnow18@gmail.com</li>
+                    <li>📍 Real-time SOS Alerts</li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="policies.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="security.html">Security Policy</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="footer-bottom">
+            <p>© 2026 ResQNow Emergency SOS System. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Small footer year helper
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Simple form submit handler (frontend only)
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Your message has been sent successfully!');
+            e.target.reset();
+        }
+    </script>
+
+    <!-- ooptional navbar script if site uses it -->
+    <script src="public/navbar.js"></script>
+</body>
+
+</html>

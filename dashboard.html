@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency SOS - Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    <div id="particles-container"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar-custom">
+        <div class="navbar-brand">ResQNow</div>
+        <div class="navbar-menu">
+            <a href="/index.html" class="navbar-item">Home</a>
+            <a href="/dashboard.html" class="navbar-item">Dashboard</a>
+            <a href="/history.html" class="navbar-item">History</a>
+            <a href="/contact.html" class="navbar-item">Contacts</a>
+        </div>
+    </nav>
+
+    <!-- Dashboard -->
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>🚨 EMERGENCY SOS DASHBOARD</h1>
+
+            <div class="user-info">
+                <div class="user-card">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="username">Welcome, User</span>
+                </div>
+                <div class="user-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="location">Fetching location...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOS BUTTON -->
+        <div class="sos-container">
+            <div class="sos-button-wrapper">
+                <div class="sos-ring"></div>
+                <div class="sos-ring"></div>
+                <button class="sos-button" id="sosButton" onclick="activateSOS()">
+                    <div class="sos-text">SOS</div>
+                    <div class="sos-subtext">PRESS NOW</div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status -->
+    <div class="status-bar">
+        <span class="status-indicator"></span>
+        <span>System Active</span>
+    </div>
+
+    <!-- Alert -->
+    <div class="alert-sos" id="sosAlert"></div>
+
+    <script>
+        const API_URL = "http://127.0.0.1:5000";
+
+        // Load user
+        function loadUser() {
+            const username = localStorage.getItem("username") || "User";
+            document.getElementById("username").innerText = "Welcome, " + username;
+        }
+
+        // Get location
+        function loadLocation() {
+            if (!navigator.geolocation) return;
+
+            navigator.geolocation.getCurrentPosition(pos => {
+                const { latitude, longitude } = pos.coords;
+                document.getElementById("location").innerText =
+                    `📍 ${latitude.toFixed(3)}, ${longitude.toFixed(3)}`;
+            }, () => {
+                document.getElementById("location").innerText = "📍 Location unavailable";
+            });
+        }
+
+        // SOS FUNCTION
+        function activateSOS() {
+
+            const alertBox = document.getElementById("sosAlert");
+
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                alertBox.innerText = "❌ Please login first!";
+                alertBox.classList.add("show");
+                return;
+            }
+
+            const sosData = {
+                timestamp: new Date().toISOString(),
+                username: localStorage.getItem("username"),
+                location: document.getElementById("location").innerText
+            };
+
+            alertBox.innerText = "🚨 Sending emergency alert...";
+            alertBox.classList.add("show");
+
+            fetch(`${API_URL}/api/sos/activate`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify(sosData)
+            })
+                .then(res => {
+                    return res.json().then(data => ({ status: res.status, data }));
+                })
+                .then(({ status, data }) => {
+                    console.log(`SOS Response Status: ${status}`, data);
+
+                    if (status === 200 && data.ok) {
+                        alertBox.innerText = "✅ Emergency alert sent!\n" + (data.details?.length > 0 ? data.details.join(', ') : "Help is on the way!");
+                    } else if (status === 404) {
+                        alertBox.innerText = "❌ " + (data.message || "No emergency contacts configured");
+                    } else if (status >= 400) {
+                        alertBox.innerText = "❌ " + (data.error || `Error: ${status}`);
+                    } else {
+                        alertBox.innerText = "❌ Unexpected response from server";
+                    }
+                })
+                .catch(err => {
+                    console.error("SOS Error:", err);
+                    alertBox.innerText = "❌ Server connection failed";
+                });
+
+            setTimeout(() => alertBox.classList.remove("show"), 5000);
+
+            if (navigator.vibrate) {
+                navigator.vibrate([200, 100, 200]);
+            }
+        }
+
+        // particles
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement("div");
+                p.className = "floating-particle";
+                p.style.left = Math.random() * 100 + "%";
+                p.style.top = Math.random() * 100 + "%";
+                container.appendChild(p);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadUser();
+            loadLocation();
+            createParticles();
+        });
+    </script>
+
+</body>
+
+</html>
