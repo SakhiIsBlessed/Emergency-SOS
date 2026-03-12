@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Privacy Policy — ResQNow</title>
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+  <nav class="navbar-custom">
+    <div class="navbar-brand">ResQNow</div>
+    <div class="navbar-menu">
+      <a href="index.html" class="navbar-item">Home</a>
+      <a href="dashboard.html" class="navbar-item">Dashboard</a>
+      <a href="history.html" class="navbar-item">History</a>
+      <a href="contact.html" class="navbar-item">Contact</a>
+      <div class="profile-dropdown">
+        <button class="profile-btn" id="profileBtn" onclick="toggleProfileDropdown(event)">👤 Profile</button>
+      </div>
+    </div>
+  </nav>
+
+    <br><br>
+  <section class="pol-hero">
+    <h1>Privacy Policy</h1>
+    <p>Last updated: February 2026 — How ResQNow collects, uses, and protects data.</p>
+  </section>
+
+  <main class="pol-container">
+    <article class="pol-card">
+      <h2>Summary</h2>
+      <p>ResQNow is committed to protecting the privacy of our users. This policy explains what data we collect, why we collect it, and your choices about that data.</p>
+
+      <div class="pol-section">
+        <h3>Data We Collect</h3>
+        <ul class="pol-list">
+          <li>Contact information (name, email, emergency contacts) you provide when registering or contacting support.</li>
+          <li>Location and SOS alert metadata when you trigger emergency alerts (timestamp, coordinates, device model).</li>
+          <li>Communications logs for SMS/WhatsApp/email confirmations (kept for troubleshooting).</li>
+        </ul>
+      </div>
+
+      <div class="pol-section">
+        <h3>How We Use Data</h3>
+        <ul class="pol-list">
+          <li>To deliver emergency notifications and coordinate assistance.</li>
+          <li>To investigate abuse, troubleshoot, and improve service reliability.</li>
+          <li>To comply with legal obligations.</li>
+        </ul>
+      </div>
+
+      <div class="pol-section">
+        <h3>Your Choices</h3>
+        <p class="policy-footnote">You can update or delete certain account information via your profile. For data deletion requests, contact support at support@resqnow.example or use the contact form.</p>
+      </div>
+
+      <div class="pol-section">
+        <h3>Data Retention</h3>
+        <p>We retain SOS alert logs and related metadata for a limited time to support investigations and improve safety features. Retention durations depend on legal or operational needs.</p>
+      </div>
+
+      <div class="pol-section">
+        <h3>Contact</h3>
+        <p class="policy-footnote">Questions about this policy? Email support@resqnow.example</p>
+      </div>
+
+    </article>
+
+    <article class="pol-card">
+      <h2>More Details</h2>
+      <div class="accordion">
+        <div class="accordion-item">
+          <button class="accordion-btn">Security of Your Information <span>▾</span></button>
+          <div class="accordion-panel">
+            <p>We implement reasonable technical and administrative measures to protect data, including encryption in transit and access controls. Note that no system is perfectly secure.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">Third-Party Services <span>▾</span></button>
+          <div class="accordion-panel">
+            <p>We may use third-party providers for messaging and analytics — those services have their own privacy practices and contractual protections.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">Children's Privacy <span>▾</span></button>
+          <div class="accordion-panel">
+            <p>ResQNow is not intended for children under 13. We do not knowingly collect personal information from children under the age of 13.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>ResQNow</h3>
+        <p>ResQNow Emergency SOS System helps users send instant emergency alerts to trusted contacts with real-time tracking and secure notifications.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/dashboard.html">Dashboard</a></li>
+          <li><a href="/history.html">History</a></li>
+          <li><a href="/contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Emergency</h4>
+        <ul>
+          <li>🚨 Available 24/7</li>
+          <li>📞 Call: 100</li>
+          <li>📩 Email: resqnow18@gmail.com</li>
+          <li>📍 Real-time SOS Alerts</li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="policies.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="security.html">Security Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ResQNow Emergency SOS System. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="public/navbar.js"></script>
+
+  <script>
+    // simple accordion
+    document.querySelectorAll('.accordion-btn').forEach(btn => {
+      btn.addEventListener('click', ()=>{
+        const panel = btn.nextElementSibling;
+        panel.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>

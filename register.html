@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Register - Emergency SOS</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Create account • ResQNow</title>
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar-custom">
+        <div class="navbar-brand">ResQNow</div>
+        <div class="navbar-menu">
+            <a href="/index.html" class="navbar-item">Home</a>
+            <a href="/dashboard.html" class="navbar-item">Dashboard</a>
+            <a href="/history.html" class="navbar-item">History</a>
+            <a href="/contact.html" class="navbar-item">Contacts</a>
+
+            <!-- Profile Dropdown -->
+            <div class="profile-dropdown">
+                <button class="profile-btn" id="profileBtn" onclick="toggleProfileDropdown(event)">
+                    👤 Profile
+                </button>
+                <div id="dropdownMenu" class="dropdown-menu">
+                    <a href="/dashboard.html">Dashboard</a>
+                    <a href="/history.html">History</a>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="auth-root">
+        <div class="auth-frame">
+            <aside class="brand-panel">
+                <img class="logo" src="img/resqnow-logo.png" alt="ResQNow logo">
+                <h1>ResQNow</h1>
+                <p>Create an account to manage trusted contacts and enable SOS alerts.</p>
+            </aside>
+
+            <section class="auth-card" aria-labelledby="registerTitle">
+                <header>
+                    <h2 id="registerTitle">Create account</h2>
+                    <div class="subtitle">Secure sign up with mobile verification</div>
+                </header>
+
+                <form id="registerForm" class="auth-form" novalidate>
+
+                    <!-- USER DETAILS -->
+
+                    <div class="field">
+                        <label for="name">Full name</label>
+                        <div>
+                            <input id="name" name="name" type="text" placeholder="Your full name" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <div>
+                            <input id="email" name="email" type="email" placeholder="your@email.com" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="rmobile">Mobile</label>
+                        <div>
+                            <input id="rmobile" name="mobile" type="tel" placeholder="+1234567890" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="rpassword">Password</label>
+                        <div>
+                            <input id="rpassword" name="password" type="password" placeholder="Create a password"
+                                required>
+                            <button type="button" class="password-toggle">Show</button>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- EMERGENCY CONTACT 1 -->
+                    <h3>Emergency Contact 1</h3>
+
+                    <div class="field">
+                        <label>Contact Name</label>
+                        <input type="text" id="ec1_name" placeholder="Contact full name" required>
+                    </div>
+
+                    <div class="field">
+                        <label>Contact Mobile</label>
+                        <input type="tel" id="ec1_mobile" placeholder="+1234567890" required>
+                    </div>
+
+                    <div class="field">
+                        <label>Contact Email</label>
+                        <input type="email" id="ec1_email" placeholder="contact@email.com" required>
+                    </div>
+
+                    <hr>
+
+
+
+                    <hr>
+
+
+
+                    <div class="actions">
+                        <a class="link" href="/login.html">Sign in instead</a>
+                        <button class="btn" type="submit">Create account</button>
+                    </div>
+
+                </form>
+
+            </section>
+        </div>
+    </main>
+    <!-- ===== Professional Footer ===== -->
+    <footer class="main-footer">
+        <div class="footer-container">
+
+            <!-- About Section -->
+            <div class="footer-section">
+                <h3>ResQNow</h3>
+                <p>
+                    ResQNow Emergency SOS System helps users send instant emergency alerts
+                    to trusted contacts with real-time tracking and secure notifications.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/dashboard.html">Dashboard</a></li>
+                    <li><a href="/history.html">History</a></li>
+                    <li><a href="/contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Emergency Information -->
+            <div class="footer-section">
+                <h4>Emergency</h4>
+                <ul>
+                    <li>🚨 Available 24/7</li>
+                    <li>📞 Call: 100</li>
+                    <li>📩 Email: resqnow18@gmail.com</li>
+                    <li>📍 Real-time SOS Alerts</li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="policies.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="security.html">Security Policy</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="footer-bottom">
+            <p>© 2026 ResQNow Emergency SOS System. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            // safe accessor: returns trimmed value or empty string if element missing
+            const val = (id) => {
+                const el = document.getElementById(id);
+                return el ? el.value.trim() : '';
+            };
+
+            const userData = {
+                name: val("name"),
+                email: val("email"),
+                mobile: val("rmobile"),
+                password: val("rpassword"),
+                emergency_contacts: []
+            };
+
+            // only include contacts when at least one field is provided
+            const ec1 = { name: val('ec1_name'), mobile: val('ec1_mobile'), email: val('ec1_email') };
+            if (ec1.name || ec1.mobile || ec1.email) userData.emergency_contacts.push(ec1);
+
+            const ec2 = { name: val('ec2_name'), mobile: val('ec2_mobile'), email: val('ec2_email') };
+            if (ec2.name || ec2.mobile || ec2.email) userData.emergency_contacts.push(ec2);
+
+            const ec3 = { name: val('ec3_name'), mobile: val('ec3_mobile'), email: val('ec3_email') };
+            if (ec3.name || ec3.mobile || ec3.email) userData.emergency_contacts.push(ec3);
+
+            if (!userData.name || !userData.email || !userData.mobile || !userData.password) {
+                alert("Please fill all required fields");
+                return;
+            }
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/register', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert("Registration successful! Verification process started.");
+                    window.location.href = "/login.html";
+                } else {
+                    alert(data.error || "Registration failed");
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert("Server error. Please try again.");
+            }
+        });
+    </script>
+
+    <!-- Professional Footer -->
+    <footer class="dashboard-footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <strong>ResQNow Emergency SOS System</strong> — Your Safety is Our Priority
+            </div>
+            <div class="footer-text">
+                📍 Real-time Emergency Response | 🔐 Secure & Encrypted | ⚡ Instant Notifications
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-links">
+                <a href="/index.html">Home</a>
+                <a href="#">About Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Support</a>
+            </div>
+            <div class="footer-emergency">
+                <strong>🚨 Emergency Always Available:</strong> Emergency Service 24/7 | Call: 911 | Text: SOS
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Profile dropdown toggle
+        function toggleProfileDropdown(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('dropdownMenu');
+            if (dropdown) {
+                dropdown.classList.toggle('active');
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('dropdownMenu');
+            const profileBtn = document.getElementById('profileBtn');
+            if (dropdown && !e.target.closest('.profile-dropdown')) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Logout function
+        function logout() {
+            alert('Logged out successfully!');
+            window.location.href = '/login.html';
+        }
+
+        // Password toggle functionality
+        document.querySelectorAll('.password-toggle').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const input = button.parentElement.querySelector('input[type="password"], input[type="text"]');
+                if (input) {
+                    const isPassword = input.type === 'password';
+                    input.type = isPassword ? 'text' : 'password';
+                    button.textContent = isPassword ? 'Hide' : 'Show';
+                    button.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+                }
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
