@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <!doctype html>
+    <html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>ResQNow — Emergency SOS</title>
+        <link rel="stylesheet" href="css/auth.css">
+        <style>
+            /* Homepage-specific styles (keeps theme consistent with auth.css) */
+            :root {
+                --accent: #e53e3e;
+                --muted: #6b7280;
+                --bg: #f7fafc
+            }
+
+            body {
+                background: var(--bg);
+                font-family: Inter, Segoe UI, Arial, Helvetica, sans-serif;
+                color: #111
+            }
+
+            .hero {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 32px;
+                padding: 64px 8%;
+                background: linear-gradient(90deg, #fff 60%, rgba(229, 62, 62, 0.05));
+            }
+
+            .hero-left {
+                max-width: 620px
+            }
+
+            .brand-kicker {
+                display: inline-block;
+                background: rgba(229, 62, 62, 0.08);
+                color: var(--accent);
+                padding: 6px 10px;
+                border-radius: 999px;
+                font-weight: 600;
+                margin-bottom: 18px
+            }
+
+            .hero h1 {
+                font-size: clamp(28px, 4vw, 48px);
+                margin: 0 0 12px 0;
+                line-height: 1.05
+            }
+
+            .hero p.lead {
+                color: var(--muted);
+                margin: 0 0 20px;
+                font-size: 18px
+            }
+
+            .hero-ctas {
+                display: flex;
+                gap: 12px
+            }
+
+            /* Button styles (apply to anchors and buttons) */
+            .btn-primary,
+            button.btn-primary {
+                background: var(--accent);
+                color: #fff;
+                padding: 12px 18px;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                font-weight: 600;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px
+            }
+
+            .btn-primary:hover {
+                filter: brightness(0.95);
+                transform: translateY(-1px);
+                box-shadow: 0 8px 24px rgba(229, 62, 62, 0.14)
+            }
+
+            .btn-primary:focus {
+                outline: 3px solid rgba(229, 62, 62, 0.18);
+                outline-offset: 2px
+            }
+
+            .btn-outline,
+            a.btn-outline {
+                background: transparent;
+                border: 2px solid rgba(0, 0, 0, 0.06);
+                padding: 10px 16px;
+                border-radius: 8px;
+                color: #111;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center
+            }
+
+            .btn-outline:hover {
+                background: rgba(0, 0, 0, 0.02)
+            }
+
+            .hero-right {
+                max-width: 420px
+            }
+
+            .feature-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 18px;
+                padding: 40px 8%;
+                align-items: start
+            }
+
+            .feature {
+                background: #fff;
+                border-radius: 12px;
+                padding: 20px;
+                box-shadow: 0 6px 18px rgba(16, 24, 40, 0.05)
+            }
+
+            .feature h3 {
+                margin: 8px 0 6px 0;
+                font-size: 16px
+            }
+
+            .how {
+                padding: 40px 8%;
+                display: flex;
+                gap: 24px;
+                align-items: flex-start
+            }
+
+            .how-step {
+                background: #fff;
+                padding: 18px;
+                border-radius: 12px;
+                box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
+                flex: 1
+            }
+
+            .stats-band {
+                display: flex;
+                gap: 18px;
+                justify-content: center;
+                padding: 18px 8%;
+                margin: 18px 0
+            }
+
+            .stat {
+                background: #fff;
+                padding: 16px;
+                border-radius: 10px;
+                box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
+                text-align: center;
+                min-width: 140px
+            }
+
+            .testimonials {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+                padding: 36px 8%
+            }
+
+            .testimonial {
+                background: #fff;
+                padding: 18px;
+                border-radius: 12px;
+                box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04)
+            }
+
+            .privacy {
+                padding: 28px 8%;
+                display: flex;
+                gap: 22px;
+                align-items: flex-start
+            }
+
+            @media(max-width:900px) {
+                .hero {
+                    flex-direction: column;
+                    padding: 36px 6%
+                }
+
+                .feature-grid {
+                    grid-template-columns: repeat(1, 1fr)
+                }
+
+                .how {
+                    flex-direction: column
+                }
+
+                .testimonials {
+                    grid-template-columns: repeat(1, 1fr)
+                }
+
+                .stats-band {
+                    flex-direction: column
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Navigation Bar (kept consistent with other pages) -->
+        <!-- Navigation Bar -->
+        <nav class="navbar-custom">
+            <div class="navbar-brand">ResQNow</div>
+            <div class="navbar-menu">
+                <a href="/index.html" class="navbar-item">Home</a>
+                <a href="/dashboard.html" class="navbar-item">Dashboard</a>
+                <a href="/history.html" class="navbar-item">History</a>
+                <a href="/contact.html" class="navbar-item">Contacts</a>
+
+                <!-- Profile Dropdown -->
+                <div class="profile-dropdown">
+                    <button class="profile-btn" id="profileBtn" onclick="toggleProfileDropdown(event)">
+                        👤 Profile
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <button class="login-btn" onclick="login()">🔑 Login</button>
+                        <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero -->
+        <br>
+        <header class="hero">
+            <div class="hero-left">
+                <span class="brand-kicker">Trusted · Instant · Private</span>
+                <h1>Instant Emergency SOS — Share location, notify trusted contacts</h1>
+                <p class="lead">ResQNow helps you summon help and keep loved ones informed in real time. One tap SOS,
+                    live location tracking, and automated alerts make it fast and reliable.</p>
+                <div class="hero-ctas">
+                    <button class="btn-primary" onclick="startSOS()">Start SOS</button>
+                    <a class="btn-primary" href="/register.html">Create Account</a>
+                </div>
+                <div style="margin-top:16px;color:var(--muted);font-size:14px">Available 24/7 · Secure notifications ·
+                    Works with SMS & WhatsApp</div>
+            </div>
+
+            <div class="hero-right">
+                <div style="background:#fff;border-radius:16px;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,0.06);">
+                    <img src="img/resqnow-logo.png" alt="ResQNow"
+                        style="width:86px;height:86px;object-fit:contain;margin-bottom:10px">
+                    <h3 style="margin:0 0 8px 0">Quick SOS</h3>
+                    <p style="margin:0 0 12px;color:var(--muted)">Tap once to send an alert to your pre-selected
+                        emergency contacts along with your live location.</p>
+                    <div style="display:flex;gap:8px"><button class="btn-primary" style="flex:1"
+                            onclick="startSOS()">Send SOS</button><a class="btn-primary" href="/dashboard.html"
+                            style="display:inline-block;padding:10px 12px">Open Dashboard</a></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Features -->
+        <section class="feature-grid">
+            <div class="feature">
+                <div style="font-size:22px">🚨</div>
+                <h3>One-tap SOS</h3>
+                <p style="color:var(--muted);font-size:14px;margin:6px 0 0">Send immediate alerts to all your trusted
+                    contacts with your exact location.</p>
+            </div>
+            <div class="feature">
+                <div style="font-size:22px">📍</div>
+                <h3>Live Location</h3>
+                <p style="color:var(--muted);font-size:14px;margin:6px 0 0">Share continuous location updates so
+                    responders know where you are, live.</p>
+            </div>
+            <div class="feature">
+                <div style="font-size:22px">🔒</div>
+                <h3>Privacy-first</h3>
+                <p style="color:var(--muted);font-size:14px;margin:6px 0 0">Your data is shared only with your selected
+                    contacts. No public broadcasts.</p>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section class="how">
+            <div class="how-step">
+                <strong>1. Prepare</strong>
+                <p style="color:var(--muted);margin:8px 0 0">Add trusted contacts and configure emergency settings in
+                    your dashboard.</p>
+            </div>
+            <div class="how-step">
+                <strong>2. Trigger</strong>
+                <p style="color:var(--muted);margin:8px 0 0">Press the SOS button — we notify contacts via SMS, WhatsApp
+                    and in-app alerts.</p>
+            </div>
+            <div class="how-step">
+                <strong>3. Track</strong>
+                <p style="color:var(--muted);margin:8px 0 0">Contacts receive a secure link showing your live location
+                    until you stop sharing.</p>
+            </div>
+        </section>
+
+        <!-- Call to action band -->
+        <section
+            style="background:#fff;padding:28px 8%;margin:24px 0;border-top:1px solid rgba(0,0,0,0.02);box-shadow:0 8px 30px rgba(16,24,40,0.03)">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:18px">
+                <div>
+                    <h3 style="margin:0">Get ready for any emergency</h3>
+                    <p style="margin:6px 0;color:var(--muted)">Sign up, add your emergency contacts and test the system
+                        today.</p>
+                </div>
+                <div style="display:flex;gap:10px">
+                    <a class="btn-primary" href="/contact.html">Contact Support</a>
+                    <button class="btn-primary" onclick="window.location.href='/register.html'">Create Account</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Professional Footer ===== -->
+        <footer class="main-footer">
+            <div class="footer-container">
+
+                <!-- About Section -->
+                <div class="footer-section">
+                    <h3>ResQNow</h3>
+                    <p>
+                        ResQNow Emergency SOS System helps users send instant emergency alerts
+                        to trusted contacts with real-time tracking and secure notifications.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/dashboard.html">Dashboard</a></li>
+                        <li><a href="/history.html">History</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Emergency Information -->
+                <div class="footer-section">
+                    <h4>Emergency</h4>
+                    <ul>
+                        <li>🚨 Available 24/7</li>
+                        <li>📞 Call: 100</li>
+                        <li>📩 Email: resqnow18@gmail.com</li>
+                        <li>📍 Real-time SOS Alerts</li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="policies.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="security.html">Security Policy</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="footer-bottom">
+                <p>© 2026 ResQNow Emergency SOS System. All Rights Reserved.</p>
+            </div>
+        </footer>
+
+        <script>
+            function startSOS() {
+                // friendly UX: confirm before triggering
+                if (confirm('Start SOS now? This will notify your emergency contacts.')) {
+                    // redirect to dashboard or trigger existing SOS workflow
+                    window.location.href = '/dashboard.html';
+                }
+            }
+        </script>
+
+        <!-- Shared Navbar and small helpers -->
+        <script src="public/navbar.js"></script>
+    </body>
+
+    </html>
+</body>
+
+</html>
