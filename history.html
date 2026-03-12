@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>SOS History — ResQNow</title>
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/contact.css">
+</head>
+
+<body class="history-page">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar-custom">
+        <div class="navbar-brand">ResQNow</div>
+        <div class="navbar-menu">
+            <a href="/index.html" class="navbar-item">Home</a>
+            <a href="/dashboard.html" class="navbar-item">Dashboard</a>
+            <a href="/history.html" class="navbar-item">History</a>
+            <a href="/contact.html" class="navbar-item">Contacts</a>
+
+            <!-- Profile Dropdown -->
+            <div class="profile-dropdown">
+                <button class="profile-btn" id="profileBtn" onclick="toggleProfileDropdown(event)">
+                    👤 Profile
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <button class="login-btn" onclick="login()">🔑 Login</button>
+                    <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="history-hero">
+        <div class="hero-inner">
+            <h1>SOS History</h1>
+            <p class="muted">All your SOS alerts recorded — newest first</p>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="history-content">
+        <div class="container">
+            <section class="panel">
+                <div class="panel-header">
+                    <h2>Recent Alerts</h2>
+                    <p class="muted small">This page shows a read-only view of `sos_alerts` entries (frontend-only).</p>
+                </div>
+
+                <!-- Table for desktop -->
+                <div class="table-wrap" aria-live="polite">
+                    <table class="alerts-table" id="alertsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Location</th>
+                                <th>Lat</th>
+                                <th>Lng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- rows injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Mobile cards (shown on small screens) -->
+                <div class="cards-list" id="alertsCards" aria-hidden="true">
+                    <!-- cards injected by JS -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ===== Professional Footer ===== -->
+    <footer class="main-footer">
+        <div class="footer-container">
+
+            <!-- About Section -->
+            <div class="footer-section">
+                <h3>ResQNow</h3>
+                <p>
+                    ResQNow Emergency SOS System helps users send instant emergency alerts
+                    to trusted contacts with real-time tracking and secure notifications.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/dashboard.html">Dashboard</a></li>
+                    <li><a href="/history.html">History</a></li>
+                    <li><a href="/contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Emergency Information -->
+            <div class="footer-section">
+                <h4>Emergency</h4>
+                <ul>
+                    <li>🚨 Available 24/7</li>
+                    <li>📞 Call: 100</li>
+                    <li>📩 Email: resqnow18@gmail.com</li>
+                    <li>📍 Real-time SOS Alerts</li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="policies.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="security.html">Security Policy</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="footer-bottom">
+            <p>© 2026 ResQNow Emergency SOS System. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Footer year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Sample data representing rows from `sos_alerts` table
+        // In a real setup fetch these from your backend: GET /api/sos_alerts
+        const sampleAlerts = [
+            { id: 312, user_id: 5, latitude: '28.7041', longitude: '77.1025', location_link: 'https://maps.google.com/?q=28.7041,77.1025', created_at: '2026-02-11 09:24:18', status: 'Sent' },
+            { id: 311, user_id: 8, latitude: '19.0760', longitude: '72.8777', location_link: 'https://maps.google.com/?q=19.0760,72.8777', created_at: '2026-02-10 22:11:02', status: 'Received' },
+            { id: 310, user_id: 5, latitude: '', longitude: '', location_link: '', created_at: '2026-02-09 14:03:45', status: 'Failed' }
+        ];
+
+        // Format date for display
+        function formatDate(ts) {
+            try { const d = new Date(ts); return d.toLocaleString(); } catch (e) { return ts }
+        }
+
+        // Render table rows and mobile cards
+        function renderAlerts(list) {
+            const tbody = document.querySelector('#alertsTable tbody');
+            const cards = document.getElementById('alertsCards');
+            tbody.innerHTML = '';
+            cards.innerHTML = '';
+
+            // newest first
+            const sorted = list.slice().sort((a, b) => (new Date(b.created_at)) - (new Date(a.created_at)));
+
+            for (const a of sorted) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+            <td>${a.id}</td>
+            <td>${formatDate(a.created_at)}</td>
+            <td><span class="badge badge-${a.status.toLowerCase()}">${a.status}</span></td>
+            <td>${a.location_link ? `<a href="${a.location_link}" target="_blank">View</a>` : '<span class="muted">—</span>'}</td>
+            <td>${a.latitude || '<span class="muted">—</span>'}</td>
+            <td>${a.longitude || '<span class="muted">—</span>'}</td>
+          `;
+                tbody.appendChild(tr);
+
+                // mobile card
+                const card = document.createElement('article');
+                card.className = 'alert-card';
+                card.innerHTML = `
+            <div class="card-row">
+              <div>
+                <div class="card-id">#${a.id}</div>
+                <div class="card-date">${formatDate(a.created_at)}</div>
+              </div>
+              <div class="card-status"><span class="badge badge-${a.status.toLowerCase()}">${a.status}</span></div>
+            </div>
+            <div class="card-body">
+              <div><strong>Location:</strong> ${a.location_link ? `<a href="${a.location_link}" target="_blank">Open Map</a>` : '<span class="muted">No location</span>'}</div>
+              <div class="coords"><small>Lat: ${a.latitude || '—'} • Lng: ${a.longitude || '—'}</small></div>
+            </div>
+          `;
+                cards.appendChild(card);
+            }
+        }
+
+        // Initialize
+        renderAlerts(sampleAlerts);
+
+        // Accessibility: toggle visibility of table vs cards based on viewport
+        function updateLayout() {
+            const cards = document.getElementById('alertsCards');
+            const tableWrap = document.querySelector('.table-wrap');
+            if (window.innerWidth <= 800) {
+                cards.setAttribute('aria-hidden', 'false');
+                tableWrap.style.display = 'none';
+            } else {
+                cards.setAttribute('aria-hidden', 'true');
+                tableWrap.style.display = '';
+            }
+        }
+        window.addEventListener('resize', updateLayout);
+        updateLayout();
+
+        // Profile dropdown toggle
+        function toggleProfileDropdown(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('dropdownMenu');
+            dropdown.classList.toggle('active');
+        }
+
+        // Logout function
+        function logout() {
+            alert('Logged out successfully!');
+            window.location.href = '/login.html';
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('click', (e) => {
+                const dropdown = document.getElementById('dropdownMenu');
+                if (dropdown && !e.target.closest('.profile-dropdown')) {
+                    dropdown.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
